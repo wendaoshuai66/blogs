@@ -1,0 +1,19 @@
+{
+  "name": "blogs",
+  "version": "1.0.0",
+  "description": "my blog",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "author": "wendaoshuai",
+  "license": "ISC",
+  "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.2.0",
+    "@vuepress/plugin-medium-zoom": "^1.2.0"
+  },
+  "dependencies": {
+    "vuepress": "^1.2.0"
+  }
+}
