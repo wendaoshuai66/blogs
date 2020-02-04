@@ -9,7 +9,7 @@ module.exports = {
     ['link', { rel: 'icon', href: '/hero.jpg' }]
   ],
   themeConfig: {
-    repo: "shuai/blog",
+    repo: "wendaoshuai66/blogs",
     nav: [
       {
         text: "博客",
@@ -109,12 +109,26 @@ module.exports = {
             "前端中的数据结构-排序"
           ]
         },
+        {
+          title: '杂谈',
+          collapsable: false,
+          children: [
+            "杂谈"
+          ]
+        },
+        {
+          title: '开发',
+          collapsable: false,
+          children: [
+            "实战1步骤详解"
+          ]
+        },
       ],
     },
     lastUpdated: "更新时间",
     docsDir: "docs",
     editLinks: true,
-    // editLinkText: "本文源码地址"
+    editLinkText: "本文源码地址"
   },
   plugins: {
     '@vuepress/medium-zoom': {
