@@ -3,23 +3,21 @@ module.exports = {
   description: "欢迎访问我的前端日志",
   ga: "UA-121061441-1",
   markdown: {
-    lineNumbers: true
+    lineNumbers: true,
   },
-  head: [
-    ['link', { rel: 'icon', href: '/hero.jpg' }]
-  ],
+  head: [["link", { rel: "icon", href: "/hero.jpg" }]],
   themeConfig: {
     repo: "wendaoshuai66/blogs",
     nav: [
       {
         text: "博客",
-        link: "/blog/"
-      }
+        link: "/blog/",
+      },
     ],
     sidebar: {
       "/blog/": [
         {
-          title: '前端基础',
+          title: "前端基础",
           collapsable: false,
           children: [
             "unknowHtml1",
@@ -41,11 +39,11 @@ module.exports = {
             "Interview",
             "面向切面",
             "system",
-            "前端架构与性能优化那些事"
-          ]
+            "前端架构与性能优化那些事",
+          ],
         },
         {
-          title: '前端框架',
+          title: "前端框架",
           collapsable: false,
           children: [
             "vue原理解析之准备工作",
@@ -66,77 +64,58 @@ module.exports = {
             "NodeJS使用的总结",
             "pm2项目部署总结",
             "KOA源码的阅读",
-            "深入Koa原理"
-          ]
+            "深入Koa原理",
+          ],
         },
         {
-          title: '前端测试',
+          title: "前端测试",
           collapsable: false,
-          children: [
-            "js_and_qa",
-            "tegratedTesting"
-          ]
+          children: ["js_and_qa", "tegratedTesting"],
         },
         {
-          title: '前端工具',
+          title: "前端工具",
           collapsable: false,
-          children: [
-            "为什么要使用package-lock.json",
-            "Package.json依赖管理"
-          ]
+          children: ["为什么要使用package-lock.json", "Package.json依赖管理"],
         },
         {
-          title: '计算机网络',
+          title: "计算机网络",
           collapsable: false,
-          children: [
-            "http协议",
-            "server-po",
-          ]
+          children: ["http协议", "server-po"],
         },
         {
-          title: '操作系统',
+          title: "操作系统",
           collapsable: false,
-          children: [
-            "Linux",
-            "Linux_supplement",
-            "Linux_web",
-          ]
+          children: ["Linux", "Linux_supplement", "Linux_web"],
         },
         {
-          title: '数据结构与算法',
+          title: "数据结构与算法",
           collapsable: false,
-          children: [
-            "前端中的数据结构-排序"
-          ]
+          children: ["前端中的数据结构-排序"],
         },
         {
-          title: '杂谈',
+          title: "杂谈",
           collapsable: false,
-          children: [
-            "杂谈"
-          ]
+          children: ["杂谈"],
         },
         {
-          title: '开发',
+          title: "开发",
           collapsable: false,
-          children: [
-            "实战1步骤详解"
-          ]
+          children: ["实战1步骤详解", "微前端调研的思考"],
         },
       ],
     },
     lastUpdated: "更新时间",
     docsDir: "docs",
     editLinks: true,
-    editLinkText: "本文源码地址"
+    editLinkText: "本文源码地址",
   },
   plugins: {
-    '@vuepress/medium-zoom': {
-      selector: 'img',
+    "@vuepress/medium-zoom": {
+      selector: "img",
       options: {
-          margin: 16
-      }
+        margin: 16,
+      },
     },
-    '@vuepress/back-to-top':true
-  }
+    "@vuepress/back-to-top": true,
+  },
 };
