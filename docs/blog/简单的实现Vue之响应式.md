@@ -7,7 +7,7 @@
 ```plain
 //提供了全局的Vue 模版
 function Vue(options) {
-    //对象 {text:'hello world!'} 
+    //对象 {text:'hello world!'}
 
     this.data = options.data;
     var data = options.data;
@@ -19,6 +19,7 @@ function Vue(options) {
     document.getElementById(options.el).appendChild(dom);
 }
 ```
+
 ## Observe.js
 
 ```plain

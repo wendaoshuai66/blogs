@@ -6,9 +6,7 @@
 
 koa 库源码核心很简单，就 4 个核心的 js 文件和 1 个控制 middleware 执行顺序的库 koa-compose。
 
-
 ![](https://wendaoshuai66.github.io/study/note/images/kao.png)
-
 
 ### request.js & response.js
 
@@ -120,8 +118,7 @@ delegate(proto, 'request')
 
 通过委托以后，就可以通过 this.ctx.body 访问到 this.response.body
 
-
-###koa-compose 库
+### koa-compose 库
 
 koa-compose 接收一个 middleware 的集合，并返回一个函数用来执行所有 middleware。
 
@@ -248,4 +245,3 @@ class Application extends Emitter {
 在 cakllback 中调用 compose 将 middleware 传入进去。
 
 当监听到请求的时候，就会按照顺序执行 middleware
-

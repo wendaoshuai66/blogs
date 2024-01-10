@@ -1,8 +1,8 @@
 # ECMAScript5.1 新增语法下
 
 ## 额外的数组
-### Array.prototype.indexOf
 
+### Array.prototype.indexOf
 
 ### Array.prototype.lastIndexOf
 
@@ -49,7 +49,6 @@ var result=["1", "2", "3"].map(parseInt);
 
 实现数组中的 map 方法
 
-
 ```plain
 
  if(!Array.prototype.map){
@@ -88,11 +87,10 @@ var result=["1", "2", "3"].map(parseInt);
        }
 ```
 
-
-
 ### Array.prototype.filter
 
 ### Array.prototype.reduce
+
 累加对象数组里的值
 
 ```plain

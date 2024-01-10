@@ -8,17 +8,15 @@
 
 模块化是指将一个复杂的系统分解为多个模块，方便编码
 
-很久以前，开发网页要通过命名空间的方式来组织代码，例如 jQuery 库将它的 API 都放 在了 window .$下，在加载完 jQue 町后，其他模块再通过 window . ♀去使用 jQuery。这样做 有很多问题，其中包括:
-
+很久以前，开发网页要通过命名空间的方式来组织代码，例如 jQuery 库将它的 API 都放 在了 window .$下，在加载完 jQue 町后，其他模块再通过 window . ♀ 去使用 jQuery。这样做 有很多问题，其中包括:
 
 命名空间冲突，两个库可能会使用同一个名称，例如 Zepto (http://zeptojs.com)也 被放在 w 工 ndow.$下
 
-无法合理地管理项目的依赖和版本 
+无法合理地管理项目的依赖和版本
 
 无法方便地控制依赖的加载顺序。
 
 直白一些就是开发效率会低，维护成本会大。
-
 
 #### CommonJS
 
@@ -29,7 +27,6 @@ require 方法同步加载依赖的其他模块，
 module.exports 导出需要的接口
 
 CommonJS 的流行 的益于 node 采用该方式，后来这种方式被引入到网页中开发
-
 
 采用 CommonJS 导入及导出的代码如下:
 
@@ -49,7 +46,6 @@ CommonJS 的优点在于:
 
 1.不能直接在浏览器环境中运行，必须通过工具转换为 ES5 的标准
 
-
 历史
 
 CommonJS 还可以细分为 CommonJSl 和 CommonJS2
@@ -58,9 +54,7 @@ CommonJS1 和 CommonJS2 区别：
 
 CommonJS1 只能通过 exports . XX = XX 导出
 
-
 CommonJS2 在 CommonJSl 的基础上加入了 module. exports = XX
-
 
 #### AMD
 
@@ -94,13 +88,9 @@ AMD 的优点在于:
 
 4.代码可以在浏览器环境中与 Node 环境中运行
 
-
-
 AMD 的优点在于:
 
-
 JavaScript 运行环境没有原生支持 AMD。， 需要先导入实现了 AMD 的库 后才能正常使用。
-
 
 #### ES6 模块化
 
@@ -123,21 +113,19 @@ export default {
 
 #### Gulp
 
-
 Gulp 是基于流的自动化构建工具。可以管理和执行任务。还可以支持监听文件，与读写文件
-
 
 Gulp 被设计得非常简单，只通过下面 5 种方法就可以支持几乎 所有构建场景:
 
-1.gulp.task 注册任务
+1. gulp.task 注册任务
 
 2. gulp.run 执行任务
 
-3.gulp.watch 监听任务
+3. gulp.watch 监听任务
 
-4.gulp.src 读取文件
+4. gulp.src 读取文件
 
-5.gulp.dest 写文件
+5. gulp.dest 写文件
 
 举个例子 Gulp 和 Rollup 实现了对数据的流清洗
 
@@ -215,15 +203,13 @@ gulp.task("default", build)
 
 #### Webpack
 
-Webpack 是一个打包模块化 js 的工具🔧，在 Webpack 中一切皆模块，通过 loader 转化文件，通过 Plugin 注入钩子，最后输出由多个模块组合成的文件📃。
+Webpack 是一个打包模块化 js 的工具 🔧，在 Webpack 中一切皆模块，通过 loader 转化文件，通过 Plugin 注入钩子，最后输出由多个模块组合成的文件 📃。
 
 一切文件如 JavaScript、 css、 scss、图片、模板，对于 Webpack 来说都是一个个模块
-
 
 #### Rollup
 
 Rollup (https://rollupjs.org)是一个和 Webpack 很类似但专注于 ES6 的模块打包工具。它 的亮点 在于，能针对 ES6 源码进行 Tree Shaking，以去除那些己被定义但没被使用的代码 并进 行 Scope Hoisting，以减小输出 文件的大 小和提升运行性能 。然而 Rollup 的这些亮点随后就被 Webpack 模仿和实现。由于 Rollup 的使用方法和 Webpack 差不多 ，所以这里就不详细介绍如 何使用 Rollup 了，而是详细说明它们的差别:
-
 
 • Rollup 是在 Webpack 流行后出 现的替代品
 
@@ -233,8 +219,6 @@ Rollup (https://rollupjs.org)是一个和 Webpack 很类似但专注于 ES6 的�
 • Rollup 不支持 CodeSpliting，但好处是在打包出来的代码中没有 Webpack 那段模块 的加载、执行和缓存的代码
 
 ## 整体流程分析
-
-
 
 ##### 第一步，执行 webpack 函数，在 webpack 函数中初始化 compiler 对象 new Compiler(options.context)，初始化自定义插件 plugin.apply(compiler)
 
@@ -246,8 +230,8 @@ const webpack = (options, callback) => {
 		//创建编译对象
 		compiler = new Compiler(options.context);
 		compiler.options = options;
-		
-		
+
+
 		//将Node.js格式的文件系统应用于compiler。
 		new NodeEnvironmentPlugin({
 			infrastructureLogging: options.infrastructureLogging
@@ -258,7 +242,7 @@ const webpack = (options, callback) => {
 				if (typeof plugin === "function") {
 					plugin.call(compiler, compiler);
 				} else {
-				
+
 					plugin.apply(compiler);
 				}
 			}
@@ -269,7 +253,7 @@ const webpack = (options, callback) => {
 		compiler.hooks.afterEnvironment.call();
 		//处理配置中的target参数，例如 web，node，根据不同配置，配置默认的plugin。
 		compiler.options = new WebpackOptionsApply().process(options, compiler);
-	} 
+	}
 	if (callback) {
 	 // 开始编译
 		compiler.run(callback);
@@ -282,7 +266,6 @@ const webpack = (options, callback) => {
 
 compiler.run(callback）执行后，就会根据生命周期，执行对应的事件钩子函数
 
-
 ##### 第二步，触发 WebpackOptionsApply 中间件
 
 在 compilation 阶段会记录好依赖的工厂类。
@@ -291,7 +274,7 @@ compiler.run(callback）执行后，就会根据生命周期，执行对应的�
 
 调用 compilation.addEntry 方法。
 
-addEntry 会调用 _addModuleChain 方法，最终经过几次调用后会进入到 NormalModule.js 中的 build 方法。
+addEntry 会调用 \_addModuleChain 方法，最终经过几次调用后会进入到 NormalModule.js 中的 build 方法。
 
 ```plain
 class WebpackOptionsApply extends OptionsApply {
@@ -339,6 +322,7 @@ class WebpackOptionsApply extends OptionsApply {
 
 module.exports = WebpackOptionsApply;
 ```
+
 上述代码 new EntryOptionPlugin().apply(compiler) 的时候会创建一个 SingleEntryPlugin 实例。
 
 ```plain
@@ -373,8 +357,7 @@ class SingleEntryPlugin {
 
 调用 compilation.addEntry 方法。
 
-addEntry 会调用 _addModuleChain 方法，最终经过几次调用后会进入到 NormalModule.js 中的 build 方法。
-
+addEntry 会调用 \_addModuleChain 方法，最终经过几次调用后会进入到 NormalModule.js 中的 build 方法。
 
 ##### 第三步，调用 NormalModule 中的 build 方法
 
@@ -424,8 +407,6 @@ doBuild(options, compilation, resolver, fs, callback) {
 ```
 
 ##### 第四步，调用 parser.parse 方法，将代码转换成 ast。 使用 Parser 分析项目依赖
-
-
 
 ```plain
 build(options, compilation, resolver, fs, callback) {
@@ -488,7 +469,6 @@ walkVariableDeclaration(statement) {
 
 这里的 require('./a.js') 是一个函数调用，在这里就会创建一个依赖，记录下对 a.js 模块的依赖关系，最终这些依赖会被放到 module.dependencies 中
 
-
 ##### 在收集完所有依赖之后，会调用 compilation.seal 方法。 使用 Template 生成结果代码
 
 遍历所有的 chunk 和 chunk 所依赖的文件。
@@ -546,15 +526,14 @@ for (const plugin of options.plugins) {
 				if (typeof plugin === "function") {
 					plugin.call(compiler, compiler);
 				} else {
-				
+
 					plugin.apply(compiler);
 				}
 			}
-			
+
 //执行对象的run 方法开始执行编译
 compiler.run(callback);
 ```
-
 
 3.确定入口：
 
@@ -566,24 +545,21 @@ WebpackOptionsApply -> EntryOptionPlugin ->SingleEntryPlugin
 从入口文件出发，开始 compilation 过程，调用所有配置的 Loader 对模块进行翻译，再将编译好的文件内容解析成 AST 静态语法树，再找出该
 模块依赖的模块，再递归本步骤直到所有入口依赖的文件都经过了本步骤的处理 。
 
-5.完成模块编译 
+5.完成模块编译
 
 经过第 4 步使用 Loader 翻译完所有模块后，生成 AST 语法树，在 AST 语法树中可以分析到模块之间的依赖关系，对应做出优化。
 
 6.输出资源
 
-将所有模块中的 require 语法替换成__webpack_require__来模拟模块化操作。
+将所有模块中的 require 语法替换成**webpack_require**来模拟模块化操作。
 
 7.最后把所有的模块打包进一个自执行函数（IIFE）中。
-
 
 ### 流程图
 
 这张图画的很好，把 webpack 的流程画的很细致。
 
-
 ![](https://wendaoshuai66.github.io/study/note/images/webpack_流程图.png)
-
 
 ## 编写插件
 
@@ -604,7 +580,7 @@ class basePlugin {
 module.exports = basePlugin
 
 
-const BasicPlugin =require (’./BasicPlug工n. j s ’); 
+const BasicPlugin =require (’./BasicPlug工n. j s ’);
 module.export = {
 
     plugins:[
@@ -615,8 +591,7 @@ module.export = {
 
 Webpack 启动后
 
-1.在读取配置的过程中会先执行 new BasicPlugin(options )，初始化一个 BasicPlugin 并获得其实例。
-2.在初始化 compiler 对象后，
+1.在读取配置的过程中会先执行 new BasicPlugin(options )，初始化一个 BasicPlugin 并获得其实例。 2.在初始化 compiler 对象后，
 
 3.再调用 basicPlugin.apply (compiler)为插件实例传入 compiler 对象。
 
@@ -624,28 +599,21 @@ Webpack 启动后
 
 这就是最简单的 Plugin😊， 但在实际开发中还 有很多细节需要注意 ，下面进行详细介绍。
 
-
 ### 到底 Compiler 和 Compilation 是什么
 
 开发 Plugin 时最常用的两个对象就是 Compiler 和 Compilation，它们是 Plugin 和 Webpack
 之间的桥梁。 Compiler 和 Compilation 的含义如下。
 
-
 Compiler 对象包含了 Webpack 环境的所有配置信息，包含 options、loaders、plugins 等信息。这个对象在 Webpack 启动时被实例化，它是全局唯一的，可以简单地将 它理解为 Webpack 实例。
 
-
 Compiler-----》 Webpack 实例
-
-
 
 Compilation 对象包含了当前的模块资源、编译生成资源、变化的文件等。当 Webpack 以开发模式运行时，每当检测到一个文件发生变化，便有一次新的 Compilation 被
 创建 。 Compilation 对象也提供了很多事件回调供插件进行扩展。通过 Compilation 也能读取到 Compiler 对象。
 
-
 Compiler 和 Compilation 的区别在于: Compiler 代表了整个 Webpack 从启动到关闭的生命周期，而 Compilation 只代表一次新的编译。
 
 ### 温习一下 webpack 事件流
-
 
 webpack 就像是我们工厂中流水线，要经过一系列的流程才会把我们的源码转化成输出结果 。在这条流水线当中每个处理流程的职责都是单一的，多个流程之间存在依赖关系，只有在完成当前处理后才能提交给下一个流程去处理。插件就像插入生产线中的某个功能，在特定的时机对生产线上的资源进行处理。
 
@@ -675,7 +643,7 @@ class SyncHook{
 
     // 订阅事件
     tap(name, fn){
-    
+
         this.hooks[name] = [fn]
     }
 
@@ -687,8 +655,8 @@ class SyncHook{
 ```
 
 ### 实战剖析
-来看一看已经被众人玩坏的 html-webpack-plugin
 
+来看一看已经被众人玩坏的 html-webpack-plugin
 
 ```plain
 const pluginName = 'ConsoleLogOnBuildWebpackPlugin';
@@ -733,25 +701,3 @@ class ConsoleLogOnBuildWebpackPlugin {
 }
 module.exports = ConsoleLogOnBuildWebpackPlugin;
 ```
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-

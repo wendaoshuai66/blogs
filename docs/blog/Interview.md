@@ -20,7 +20,6 @@
 
 在任何情况下，Promise.all 返回的 promise 的完成状态的结果都是一个数组
 
-
 ```plain
 Promise.all = function(prosmises) {
                 if (!Array.isArray(prosmises)) {
@@ -79,7 +78,6 @@ Promise.race 的返回值是一个 promise 实例
 如果传入的参数中不包含任何 promise，Promise.race 会返回一个处理中（pending）的 promise
 如果 iterable 包含一个或多个非 promise 值或已经解决的 promise，则 Promise.race 将解析为 iterable 中找到的第一个值。
 
-
 ```plain
 Promise.race = function(promsies) {
             if (!Array.isArray(promsies)) {
@@ -111,12 +109,9 @@ Promise.race = function(promsies) {
 
 ```
 
-
-## 为啥 await 在 forEach 中不生效 
-
+## 为啥 await 在 forEach 中不生效
 
 ### 不知道你有没有写过类似的代码，反正以前我是写过
-
 
 ```plain
 function test() {
@@ -147,7 +142,6 @@ test()
 end
 ```
 
-
 结果现实与我开了个玩笑，打印顺序居然是
 
 ```plain
@@ -156,7 +150,6 @@ end
 2
 3
 ```
-
 
 ### 为什么
 
@@ -227,7 +220,6 @@ async function test() {
 }
 ```
 
-
 以上代码等价于 for...of，可以看成 for...of 是以上代码的语法糖。
 
 ### 延伸
@@ -257,7 +249,6 @@ let a = 0;
 ```
 
 这里 await 会对 a 冻结
-
 
 ## new 的实现原理是什么
 
@@ -326,7 +317,6 @@ a instanceof Object
 
 ### 实现
 
-
 ```plain
 function myInstance(target, org) {
             var proto = target.__proto__;
@@ -359,7 +349,7 @@ var A = function() {};
 
 ## 手动实现 call、apply
 
-谈起 call 和 apply 这两个 Function.prototype 上的方法可能很熟悉了，它在继承，改变 this 指针上有很多的应用场景。接下来我们简单的来重新回忆一下 call 和 apply 这两个函数的功能 
+谈起 call 和 apply 这两个 Function.prototype 上的方法可能很熟悉了，它在继承，改变 this 指针上有很多的应用场景。接下来我们简单的来重新回忆一下 call 和 apply 这两个函数的功能
 
 ### 例子一
 
@@ -404,7 +394,6 @@ function FuncA(value) {
 
 经过上面的例子我们可以直观的知道 call apply 的作用大部分都是用作改变 this 的指针。那么接下来我们来模拟 call apply 实现简单的一下这两个函数
 
-
 ###模拟实现 call
 
 1.判断当前 this 是否为函数，防止 Function.prototype.myCall() 直接调用
@@ -442,7 +431,6 @@ Function.prototype.myCall = function(context = window, ...args) {
         }
 ```
 
-
 ### 模拟实现 apply
 
 apply 实现类似 call，参数为数组
@@ -469,14 +457,13 @@ Function.prototype.myApply = function(context, args) {
 
 可避免 setInterval 因执行时间导致的间隔执行时间不一致
 
-
 ```plain
 setTimeout(function() {
             //dosomething
             console.log(11)
             setTimeout(arguments.callee, 1000)
         }, 1000)
-``` 
+```
 
 ### 手写拖拽
 
@@ -513,7 +500,6 @@ setTimeout(function() {
 ```
 
 #### 原生 js
-
 
 ```plain
 #box {

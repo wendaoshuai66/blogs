@@ -1,6 +1,6 @@
 # 深入 Koa 原理
 
-通过上一篇文章，我们已经了解到 Koa 是个非常精简的框架，实现起来难度并不大，这一章我们就一起来手写一个 koa 吧！ 
+通过上一篇文章，我们已经了解到 Koa 是个非常精简的框架，实现起来难度并不大，这一章我们就一起来手写一个 koa 吧！
 
 编写 application 文件
 
@@ -14,16 +14,15 @@ Application 文件是 koa 的核心，所有逻辑都会经过该文件调度。
 
 ### 开启 Web 服务器
 
-* 首先，koa 作为一个 web 服务器框架，开启一个 web 服务器是最基本的方法。
+- 首先，koa 作为一个 web 服务器框架，开启一个 web 服务器是最基本的方法。
 
-* 封装 listen 方法开启服务器（底层调用 http.createServer）。
+- 封装 listen 方法开启服务器（底层调用 http.createServer）。
 
-* 在 http.createServer 回调函数中调用 callback 方法，执行中间件。
+- 在 http.createServer 回调函数中调用 callback 方法，执行中间件。
 
-* 中间件执行不报错，会调用 respond 方法，对返回及结果进行操作。
+- 中间件执行不报错，会调用 respond 方法，对返回及结果进行操作。
 
-* 中间件执行报错，会调用 onerror 方法，输出错误信息到客户端。
-
+- 中间件执行报错，会调用 onerror 方法，输出错误信息到客户端。
 
 ```plain
 //node 常见的事件模型就是我们常见的订阅发布模式，核心API采用的就是异步事件驱动
@@ -69,7 +68,6 @@ module.exports = Application;
 
 为了更方便用户的操作，koa 将请求和响应两个对象进行了代理，通过创建 context 对象，掌管整个请求和响应。
 
-
 ```plain
 class Application extends Emitter {
     createContext(req, res) {
@@ -81,7 +79,7 @@ class Application extends Emitter {
         ctx.res = ctx.response.res = res;
         return ctx;
     }
-  
+
 
 }
 module.exports = Application;
@@ -90,7 +88,6 @@ module.exports = Application;
 ## 封装中间件执行逻辑
 
 koa-compose 接收一个 middleware 的集合，并返回一个函数用来执行所有 middleware。代码执行的顺序是洋葱式的代码。
-
 
 ```plain
 class Application extends Emitter {
@@ -119,8 +116,8 @@ class Application extends Emitter {
             }
         }
     }
- 
-   
+
+
 
 }
 module.exports = Application;
@@ -128,18 +125,16 @@ module.exports = Application;
 
 ## 中间件执行完成后的操作
 
-
 中间件执行完成后会执行以下方法。
 
-* responseBody 向客户端输出数据之前，进行数据的处理。
-* onerror 如果中间件出错，则做出对应操作。
-
+- responseBody 向客户端输出数据之前，进行数据的处理。
+- onerror 如果中间件出错，则做出对应操作。
 
 ```plain
 
 
 class Application extends Emitter {
-   
+
     onerror(err, ctx) {
         console.lof(ctx)
         if (err.code == "ENOENT") {
@@ -164,9 +159,9 @@ class Application extends Emitter {
         }
         res.end(body);
     }
-    
-   
-  
+
+
+
 
 }
 module.exports = Application;
@@ -177,7 +172,6 @@ module.exports = Application;
 Request 和 Response 文件是对请求和响应的一层浅封装，提供一套更加方便的请求响应处理方法。
 
 ### 编写 request 文件
-
 
 ```plain
 var url = require('url');
@@ -222,8 +216,8 @@ module.exports = {
 
 在 context 文件中代理 request 和 response。
 
-* 使用__defineSetter__方法代理 set 请求。
-* 使用__defineGetter__方法代理 get 请求。
+- 使用**defineSetter**方法代理 set 请求。
+- 使用**defineGetter**方法代理 get 请求。
 
 ```plain
 //负责代理，把上面的方法代理到context上面

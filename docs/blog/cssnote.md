@@ -26,7 +26,7 @@ CSS2.1 作为 CSS2 和 CSS1 的后序版本，基于一下一组设计理念：
 
 ## 圣杯布局
 
-[CSS 实现水平垂直居中的 1010 种方式 ](https://yanhaijing.com/css/2018/01/17/horizontal-vertical-center/)
+[CSS 实现水平垂直居中的 1010 种方式  ](https://yanhaijing.com/css/2018/01/17/horizontal-vertical-center/)
 
 ```plain
  <div class="contant">
@@ -152,43 +152,43 @@ margin 不改变盒子布局
 
 display
 
-| 标准版                  | 09 版                 |
+| 标准版               | 09 版               |
 | -------------------- | ------------------- |
 | display: flex        | display: box        |
 | display: inline-flex | display: inline-box |
 
 flex-direction
 
-| 标准版                            | 09 版                                      |
-| ------------------------------ | ---------------------------------------- |
-| flex-direction: row            | box-orient: horizontal; box-direction: normal |
+| 标准版                         | 09 版                                          |
+| ------------------------------ | ---------------------------------------------- |
+| flex-direction: row            | box-orient: horizontal; box-direction: normal  |
 | flex-direction: row-reverse    | box-orient: horizontal; box-direction: reverse |
-| flex-direction: column         | box-orient: vertical; box-direction: normal |
-| flex-direction: column-reverse | box-orient: vertical; box-direction: reverse |
+| flex-direction: column         | box-orient: vertical; box-direction: normal    |
+| flex-direction: column-reverse | box-orient: vertical; box-direction: reverse   |
 
 flex-wrap
 
-| 标准版                     | 09 版                 |
+| 标准版                  | 09 版               |
 | ----------------------- | ------------------- |
 | flex-wrap: nowrap       | box-lines: single   |
 | flex-wrap: wrap         | box-lines: multiple |
-| flex-wrap: wrap-reverse | 无                   |
+| flex-wrap: wrap-reverse | 无                  |
 
 flex-flow 是 flex-direction 和 flex-wrap 两个属性的简写，09 版无对应属性，09 版可以分开写两条属性
 
 justify-content
 
-| 标准版                            | 09 版               |
+| 标准版                         | 09 版             |
 | ------------------------------ | ----------------- |
 | justify-content: flex-start    | box-pack: start   |
 | justify-content: flex-end      | box-pack: end     |
 | justify-content: center        | box-pack: center  |
 | justify-content: space-between | box-pack: justify |
-| justify-content: space-around  | 无                 |
+| justify-content: space-around  | 无                |
 
 align-items
 
-| 标准版                     | 09 版                 |
+| 标准版                  | 09 版               |
 | ----------------------- | ------------------- |
 | align-items: flex-start | box-align: start    |
 | align-items: flex-end   | box-align: end      |
@@ -211,7 +211,7 @@ align-content，09 版无对应属性
 
 order
 
-| 标准版           | 09 版                       |
+| 标准版        | 09 版                     |
 | ------------- | ------------------------- |
 | order: number | box-ordinal-group: number |
 
@@ -223,7 +223,7 @@ flex-basis，09 版无对应属性
 
 flex，标准版的 flex 是一个复合属性，09 版的 box-flex 仅支持配置数字
 
-| 标准版                                    | 09 版              |
+| 标准版                                 | 09 版            |
 | -------------------------------------- | ---------------- |
 | flex: flex-grow flex-shrink flex-basis | box-flex: number |
 
@@ -231,11 +231,11 @@ align-self，09 版无对应属性
 
 ### 弹性盒模型与 reset 的选择
 
-*的杀伤力太大
+\*的杀伤力太大
 
-Reset.css 重置 Normalize.css 修复   Neat.css 融合了 Reset.css 与 Normalize.css
+Reset.css 重置 Normalize.css 修复 Neat.css 融合了 Reset.css 与 Normalize.css
 
-html{box-sizing: border-box;} *,*:before,X:after{box-sizing: inherit;} inherit 继承
+html{box-sizing: border-box;} _,_:before,X:after{box-sizing: inherit;} inherit 继承
 
 ### 相关资料
 
@@ -246,7 +246,7 @@ html{box-sizing: border-box;} *,*:before,X:after{box-sizing: inherit;} inherit �
 
 Box: CSS 布局的基本单位
 
-Box 是 CSS 布局的对象和基本单位， 直观点来说，就是一个页面是由很多个 Box 组成的。元素的类型和 display 属性，决定了这个 Box 的类型。 不同类型的 Box， 会参与不同的 Formatting Context（一个决定如何渲染文档的容器），因此 Box 内的元素会以不同的方式渲染。让我们看看有哪些盒子：
+Box 是 CSS 布局的对象和基本单位， 直观点来说，就是一个页面是由很多个 Box 组成的。元素的类型和 display 属性，决定了这个 Box 的类型。 不同类型的 Box， 会参与不同的 Formatting Context（一个决定如何渲染文档的容器），因此 Box 内的元素会以不同的方式渲染。让我们看看有哪些盒子：
 
 block-level box:display 属性为 block, list-item, table 的元素，会生成 block-level box。并且参与 block fomatting context；
 
@@ -331,8 +331,6 @@ overflow不为visible
  </div>
 ```
 
-
-
 ![bfc1](https://wendaoshuai66.github.io/study/note/images/bfc3.jpg)
 
 ```plain
@@ -346,7 +344,7 @@ overflow不为visible
 Box 垂直方向的距离由 margin 决定。属于同一个 BFC 的两个相邻 box 的 margin 会发生重叠·。我们可以在 p 外面包裹一层容器，并触发该容器生成 BFC，那 p 标签在不同的 BFC，margin 就不会发生重叠了。
 
 ```plain
-<style>    
+<style>
     p {
          color: #f55;
          background: #fcc;
@@ -357,7 +355,7 @@ Box 垂直方向的距离由 margin 决定。属于同一个 BFC 的两个相邻
     }
 
   </style>
-    
+
 <body>
 <p>Haha</p>
 <p>Hehe</p> 
@@ -398,11 +396,10 @@ div.zhijiaosanjiaoxing {
 
 绘制五角星
 
-
 实现三个三角形，可以是通过三个标签；但是这里用的是 CSS 的伪元素选择器(::before, ::after)来实现的并且对于三个选择器通过 position 定位就能组合成一个完整的五角星了
 
 ```plain
- 
+
         .star-five {
             width: 0;
             height: 0;
@@ -421,7 +418,7 @@ div.zhijiaosanjiaoxing {
             /* IE 9 */
             margin-top: 80px;
         }
-        
+
         .star-five::before {
             content: '';
             width: 0;
@@ -443,7 +440,7 @@ div.zhijiaosanjiaoxing {
             -ms-transform: rotate(75deg);
             /* IE 9 */
         }
-        
+
         .star-five::after {
             content: '';
             width: 0;
@@ -465,9 +462,9 @@ div.zhijiaosanjiaoxing {
             left: -100px;
             top: 0;
         }
-        
+
         /* 上半圆 */
-        
+
         .semi-circle {
             margin-top: 100px;
             width: 100px;
@@ -476,7 +473,7 @@ div.zhijiaosanjiaoxing {
             background: orange;
         }
         /* 下半圆 */
-        
+
         .semi-circle1 {
             margin-top: 100px;
             width: 100px;
@@ -487,28 +484,3 @@ div.zhijiaosanjiaoxing {
 ```
 
 css 绘制腾讯公司[企鹅 logo](http://www.333cn.com/shejizixun/201806/43498_141178.html)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

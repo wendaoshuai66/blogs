@@ -24,7 +24,7 @@
       identify.call( you ); // READER
       speak.call( me ); // Hello, 我是 KYLE
       speak.call( you ); // Hello, 我是 READER
-      
+
       如果不用this
       function identify(context) {
        return context.name.toUpperCase();
@@ -61,7 +61,7 @@ this 提供了更优雅的隐式方式’传递‘一个对象的引用，可以
         foo: 8
         foo: 9
       console.log( foo.count );//0---->为什么
-      
+
       解决此的两种方法：
       方法一：
       function foo(num) {
@@ -103,11 +103,11 @@ this 提供了更优雅的隐式方式’传递‘一个对象的引用，可以
 
 this 指向函数的作用域。这个问题有点复杂，因为在某种情况下它是正确的，但是在其他情况下它却是错误的
 
-> *需要明确的是，this 在任何情况下都不指向函数的词法作用域*
+> _需要明确的是，this 在任何情况下都不指向函数的词法作用域_
 
 ### this 到底是什么
 
-> *this 是在运行时进行绑定的，并不是在编写时绑定，它的上下文取决于函数调用时的各种条件。this 的绑定和函数声明的位置没有任何关系，只取决于函数的调用方式。*
+> _this 是在运行时进行绑定的，并不是在编写时绑定，它的上下文取决于函数调用时的各种条件。this 的绑定和函数声明的位置没有任何关系，只取决于函数的调用方式。_
 
 ### this 调用位置
 
@@ -187,8 +187,6 @@ foo()//2
 ```
 
 总结：this 绑定规则完全取决于调用位置，但是只有 foo()运行在非 strict mode 默认绑定才能绑定到全局对象；严格模式下与 foo()的调用位置无关
-
-
 
 ### 绑定规则----隐式绑定
 
@@ -282,7 +280,7 @@ function foo() {
  // var obj={a:1}
  foo.call(obj)
  通过foo.call,调用foo----->强制把foo的this--》绑定到----》obj
- 
+
  你传入了一个原始值（字符串类型、布尔类型或者数字类型）来当作 this 的绑定对象，这个原始值会被转换成它的对象形式（也就是 new String(..)、new Boolean(..) 或者new Number(..)）。这通常被称为“装箱”
 ```
 
@@ -357,11 +355,12 @@ bind(..) 会返回一个硬编码的新函数，它会把参数设置为 this �
 使用 new 来调用函数，或者说发生构造函数调用时，会自动执行下面的操作。
 
 1. 创建（或者说构造）一个全新的对象。
-2. 这个新对象会被执行 [[ 原型 ]] 连接。
+2. 这个新对象会被执行 [[原型]] 连接。
 3. 这个新对象会绑定到函数调用的 this。
 4. 如果函数没有返回其他对象，那么 new 表达式中的函数调用会自动返回这个新对象
 
 ### 被忽略的 this
+
 把 null 或者 undefined 作为 this 的绑定对象传入 call、apply 、bind，这些值会被忽略，实际用的是默认的绑定规则，直接上代码：
 
 ```plain
@@ -388,6 +387,7 @@ function foo(a,b) {
 var bar=foo.bind(null,1);
 		bar(2)
 ```
+
 更安全的 this 传入特殊的对象，把 this 绑定到这个对象不会对程序产生任何副作用
 
 ```plain
@@ -407,8 +407,8 @@ var ø =  Object.create(null);
 ```
 
 ### this---->软绑定
-问题：硬绑定这种方式可以把 this 强制绑定到指定的对象(除了使用 new 时)，防止函数调用应用默认绑定规则。问题在于，硬绑定会大大降低函数的灵活性，使 用硬绑定之后就无法使用隐式绑定或者显式绑定来修改 this
 
+问题：硬绑定这种方式可以把 this 强制绑定到指定的对象(除了使用 new 时)，防止函数调用应用默认绑定规则。问题在于，硬绑定会大大降低函数的灵活性，使 用硬绑定之后就无法使用隐式绑定或者显式绑定来修改 this
 
 解决方法：默认绑定指定一个全局对象和 undefined 以外的值，那就可以实现和硬绑定相 同的效果，同时保留隐式绑定或者显式绑定修改 this 的能力。
 
@@ -453,10 +453,10 @@ setTimeout(obj2.foo,1000);//"name: obj1"
 境上，但有软绑定，这里this还是指向obj1*/
 
 ```
+
 实现效果
 
 在第一行，先通过判断，如果函数的原型上没有 softBind()这个方法，则添加它，然后通过 Array.prototype.slice.call(arguments,1)获取传入的外部参数，这里这样做其实为了函数柯里化，也就是说，允许在软绑定的时候，事先设置好一些参数，在调用函数的时候再传入另一些参数（关于函数柯里化大家可以去网上搜一下详细的讲解）最后返回一个 bound 函数形成一个闭包，这时候，在函数调用 softBind()之后，得到的就是 bound 函数，例如上面的 var fooOBJ=foo.softBind(obj1)。
-
 
 在 bound 函数中，首先会判断调用软绑定之后的函数（如 fooOBJ）的调用位置，或者说它的 this 的指向，如果!this（this 指向 undefined）或者 this===(window||global)（this 指向全局对象），那么就将函数的 this 绑定到传入 softBind 中的参数 obj 上。如果此时 this 不指向 undefind 或者全局对象，那么就将 this 绑定到现在正在指向的函数（即隐式绑定或显式绑定）。fn.apply 的第二个参数则是运行 foo 所需要的参数，由上面的 args（外部参数）和内部的 arguments（内部参数）连接成，也就是上面说的柯里化。
 其实在第一遍看这个函数时，也有点迷，有一些疑问，比如 var fn=this 这句，在 foo 通过 foo.softBind()调用 softBind 的时候，fn 到底指向谁呢？是指向 foo 还是指向 softBind？我们可以写个 demo 测试，然后可以很清晰地看出 fn 指向什么：
@@ -478,10 +478,5 @@ Function.prototype.softBind.a=5;
 foo.softBind()();//3
 Function.prototype.softBind()();//4
 ```
+
 可以看出，fn（或者说 this）的指向还是遵循 this 的绑定规则的，softBind 函数定义在 Function 的原型 Function.prototype 中，但是 JavaScript 中函数永远不会“属于”某个对象（不像其他语言如 java 中类里面定义的方法那样），只是对象内部引用了这个函数，所以在通过下面两种方式调用时，fn（或者说 this）分别隐式绑定到了 foo 和 Function.prototype，所以分别输出 3 和 4。后面的 fn.apply()也就相当于 foo.apply()。
-
-
-
-
-
-

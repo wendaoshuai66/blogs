@@ -3,6 +3,7 @@
 ## 函子
 
 ### 回顾范畴与容器
+
 1.我们可以把”范畴”想象成是一个容器，里面包含两样东西。值(value)、值的变形关系，也就是函数。
 
 2.范畴论使用函数，表达范畴之间的关系。
@@ -80,6 +81,7 @@ console.log(container1)
 Functor.of(null).map(s=> s.toUpperCase());
 // TypeError
 ```
+
 上面代码中，函子里面的值是 null，结果小写变成大写的时候就出错了。
 
 Maybe 函子就是为了解决这一类问题而设计的。简单说，它的 map 方法里面设置了空值检查。
@@ -107,7 +109,6 @@ Promise 是可以调用 catch 来集中处理错误的。
 
 事实上 Either 并不只是用来做错误处理的，它表示了逻辑或，范畴学里的 coproduc。
 
-
 条件运算 if...else 是最常见的运算之一，函数式编程里面，使用 Either 函子表达。
 
 Either 函子内部有两个值：左值（Left）和右值（Right）。右值是正常情况下使用的值，左值是右值不存在时使用的默认值。
@@ -120,7 +121,7 @@ class Either extends Functor {
   }
 
   map(f) {
-    return this.right ? 
+    return this.right ?
       Either.of(this.left, f(this.right)) :
       Either.of(f(this.left), this.right);
   }
@@ -157,63 +158,61 @@ Either
 .map(updateField);
 
 ```
+
 上面代码中，如果用户没有提供地址，Either 函子就会使用左值的默认地址。
 
 ```plain
-var Left = function(x) { 
+var Left = function(x) {
    this.__value = x;
 }
 var Right = function(x) {
-   this.__value = x; 
+   this.__value = x;
  }
-Left.of = function(x) { 
+Left.of = function(x) {
    return new Left(x);
 }
 
-Right.of = function(x) { 
+Right.of = function(x) {
    return new Right(x);
 }
 
 ```
+
 ```plain
-// 这里不同!!! 
+// 这里不同!!!
 Left.prototype.map = function(f) {
-    return this; 
+    return this;
 
 }
 
 
 Right.prototype.map = function(f) {
 
-   return Right.of(f(this.__value)); 
+   return Right.of(f(this.__value));
 
 }
 ```
 
-
-Left 和 Right 唯一的区别就在于 map 方法的实 现，Right.map 的行为和我们之前提到的 map 函数一样。但是 Left.map 
+Left 和 Right 唯一的区别就在于 map 方法的实 现，Right.map 的行为和我们之前提到的 map 函数一样。但是 Left.map
 就很不同了:它不会对容器做任何事情，只是很简单地把这个容器拿进来又扔出 去。这个特性意味着，Left 可以用来传递一个错误 消息。
-
 
 错误处理 Either 例如：
 
 ```plain
 
 var getAge = user => user.age ? Right.of(user.age) : Left.of("ERROR!");
-var k=getAge({name: 'stark', age: '21'}).map(age => 'Age is ' + age); 
+var k=getAge({name: 'stark', age: '21'}).map(age => 'Age is ' + age);
 //=> Right('Age is 21')
 
 var s=getAge({name: 'stark'}).map(age => 'Age is ' + age); //=> Left('ERROR!')
-  
-```
 
+```
 
 Left 可以让调用链中任意一环的错误立刻返回到调用链的尾 部，这给我们错误处理带来了很大的方便，再也不用一层又一 层的 try/catch。
 
 ##Ap 函子
 
 函子里面包含的值，完全可能是函数。我们可以想象这样一种情况，一个函子的值是数值，另一个函子的值是函数。
-
 
 ```plain
 class Ap extends Functor {
@@ -226,8 +225,8 @@ class Ap extends Functor {
 function addTwo(x) {
          return x + 2;
         }
-        
-Ap.of(addTwo).ap(Functor.of(2))// Ap(4)    
+
+Ap.of(addTwo).ap(Functor.of(2))// Ap(4)
 ```
 
 ## Monad 函子
@@ -252,17 +251,18 @@ class Monad extends Functor {
 
 •3.Monad 让我们避开了嵌套地狱，可以轻松地进行深度嵌的函数式编程，比如 IO 和其他异步任务
 •4.记得让上面的 IO 集成 Monad
+
 ## IO 函子
 
- •1.真正的程序总要去接触肮脏的世界。
- 
- ```plain
-  function readLocalStorage(){
-    return window.localStorage;
-     }
- ``` 
+•1.真正的程序总要去接触肮脏的世界。
 
-.2.IO 跟前面那几个 Functor 不同的地方在于，它的 __value 是一个函数。 它把不纯的操作(比如 IO、网络请求、DOM)包裹到一个函数内，从而延迟这个操作的执行。所以我们认为，IO 包含的是被包裹的操作的返回值。
+```plain
+ function readLocalStorage(){
+   return window.localStorage;
+    }
+```
+
+.2.IO 跟前面那几个 Functor 不同的地方在于，它的 \_\_value 是一个函数。 它把不纯的操作(比如 IO、网络请求、DOM)包裹到一个函数内，从而延迟这个操作的执行。所以我们认为，IO 包含的是被包裹的操作的返回值。
 
 .3.IO 其实也算是惰性求值。
 
@@ -271,27 +271,29 @@ class Monad extends Functor {
 废话不多说来段代码理解
 
 ```plain
-import _ from 'lodash'; 
+import _ from 'lodash';
 var compose = _.flowRight;
 var IO = function(f) {
-    this.__value = f; 
+    this.__value = f;
 }
 IO.of = x => new IO(_ => x);
 IO.prototype.map = function(f) {
-    return new IO(compose(f, this.__value)) 
+    return new IO(compose(f, this.__value))
 };
 ```
-  es6 写法
-  
+
+es6 写法
+
 ```plain
-import _ from 'lodash'; 
+import _ from 'lodash';
 var compose = _.flowRight;
-class IO extends Monad{ 
+class IO extends Monad{
     map(f){
-    return IO.of(compose(f, this.__value)) 
+    return IO.of(compose(f, this.__value))
    }
 }
 ```
+
 ## 当下函数式编程最热的库
 
 1、RxJS
@@ -326,4 +328,3 @@ frp => angular
 函数式编程不应被视为灵丹妙药。相反，它应 该被视为我们现有工具箱的一个很自然的补充 —— 它带来了更高的可组合性，灵活性以及容错 性。现代的 JavaScript 库已经开始尝试拥抱函数式编 程的概念以获取这些优势。Redux 作为一种 FLUX 的变种实现，核心理念也是状态机和函数式编程。
 
 软件工程上讲『没有银弹』，函数式编程同样也不是万能的，它与烂大街的 OOP 一样，只是一种编程范式而已。很多实际应用中是很难用函数式去表达的，选择 OOP 亦或是其它编程范式或许会更简单。但我们要注意到函数式编程的核心理念， 如果说 OOP 降低复杂度是靠良好的封装、继承、多态以及接口定义的话，那么函 数式编程就是通过纯函数以及它们的组合、柯里化、Functor 等技术来降低系统复 杂度，而 React、Rxjs、Cycle.js 正是这种理念的代言。让我们一起拥抱函数式编程， 打开你程序的大门!
-  

@@ -1,6 +1,7 @@
 # 不知道的 JavaScript
 
 ## 例 1
+
 ```plain
 if(false){
     var a= 1;
@@ -15,7 +16,9 @@ if（false）{
 	a=1
 }
 ```
+
 ### 拓展 1
+
 ```plain
  function test(){
     console.log(1)
@@ -23,7 +26,9 @@ if（false）{
 var test;//忽略掉test为undefined变量
 console.log(test)//function test(){console.log(1)}
 ```
+
 ### 拓展 2 函数表达式定义的时候函数的名字外部不能被访问，内部不能被修改
+
 ```plain
 var p=function test(){
     //只能在函数内部访问
@@ -33,6 +38,7 @@ var p=function test(){
 p()
 console.log(test)//报错 ，函数表达式外部不能访问test，只能在函数内部访问
 ```
+
 ## 例 2 this
 
 ```plain
@@ -47,9 +53,11 @@ var o={
 var p1=o.foo.bind({});
 new p1();
 var p2=o.bar.bind({}) ;//ES6 bind不能被new
-new p2();//报错了，p2 is a not construct 
+new p2();//报错了，p2 is a not construct
 ```
+
 ### 拓展 1
+
 ```plain
 this.a = 20;
 function test(){
@@ -62,6 +70,7 @@ var result=test.bind(obj)
 new result();//undefined  new 会对bind失效
 
 ```
+
 ### 拓展 2 bind 的实现
 
 ```plain
@@ -77,7 +86,7 @@ if(!Function.prototype.bind ){
         },
         ftbound = function(){
         fTobind.apply(this instanceof FNOP && oThis ?this :oThis, 		oArg.concat.call(Array.prototype.slice.call(arguments,1)));
-        
+
         }
         if(this.prototype){
             FNOP.prototype = this.prototype
@@ -101,6 +110,7 @@ test(1,2,3)
 ```
 
 ### 拓展 3 构造函数优先级比原型链高
+
 ```plain
 function C1(name){
     //构造函数不存在
@@ -120,7 +130,9 @@ C3.prototype.name = 'three'
 console.log((new C1().name)+(new C2().name)+(new C3().name))//one undefined fei
 
 ```
+
 ### 拓展 4
+
 ![不知道的js](https://wendaoshuai66.github.io/study/note/images/js.jpeg)
 
 解释上图：第一个是：语句优先，所以它的先执行{};然后[];所以等于 0
@@ -129,13 +141,13 @@ console.log((new C1().name)+(new C2().name)+(new C3().name))//one undefined fei
 
 ### 按值传递与按引用传递
 
-
 #### 基本数据类型（值类型）
+
 1.Boolean false true
 
 2.Number NaN 最大值 最小值
 
-3.String 
+3.String
 
 4.null 根本不存在
 
@@ -143,8 +155,8 @@ console.log((new C1().name)+(new C2().name)+(new C3().name))//one undefined fei
 
 6.Sysbol 引入一个唯一的值
 
-
 #### Object
+
 1.Array
 
 2.RegExp
@@ -159,7 +171,6 @@ console.log((new C1().name)+(new C2().name)+(new C3().name))//one undefined fei
 
 使用 typeof 判断数据类型
 
-
 typeof NaN //number
 
 typeof symbol // sysmbol
@@ -168,10 +179,10 @@ typeof alert //function
 
 typeof null //object
 
-typeof not _ defined_var //undefined
-
+typeof not \_ defined_var //undefined
 
 #### 按值传递
+
 var a= 1;
 var b= a;
 b=3
@@ -188,8 +199,8 @@ b.xx= 2
 
 a===b //true
 
-
 #### 引申
+
 ```plain
 
  function test(m){
@@ -228,6 +239,7 @@ console.log(a)//报错 Uncaught ReferenceError: a is not defined
 ```
 
 ### 拓展 6
+
 ```plain
 function test(){
     //该处的this.length指的是iframe的数量
@@ -235,7 +247,9 @@ function test(){
 }
 test()
 ```
+
 #### 引申
+
 ```plain
 var length =10;
 function test(){
